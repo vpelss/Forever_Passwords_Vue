@@ -183,7 +183,7 @@
       </div>
 
       <div>
-        <input type="checkbox" id="clear_timer" data-mini="true" value="" onchange="" title=""> <label for="clear_timer">Timed Clear</label>
+        <input type="checkbox" id="clear_timer" data-mini="true" value="" onchange="stop_timers();" title=""> <label for="clear_timer">Timed Clear</label>
       </div>
     </form>
 
@@ -258,7 +258,7 @@
 <script src='https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js'></script>
 <script src='https://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>
     <script id="rendered-js" type="module">
-import  { createApp } from "https://esm.sh/vue";
+import { createApp } from "https://esm.sh/vue";
 
 // Now I am a module! - Ralph
 // https://stackoverflow.com/questions/53630310/use-functions-defined-in-es6-module-directly-in-html
@@ -439,8 +439,6 @@ function Sha1_f(s, x, y, z) {
   }
 }
 
-window.GeneratePW = GeneratePW;
-
 /**
  * Rotates left (circular left shift) value x by n positions [§3.2.5].
  * @private
@@ -522,6 +520,7 @@ function stop_timers() {
   clearInterval(countdowninterval);
   document.getElementById("timer_alert").innerHTML = "";
 }
+window.stop_timers = stop_timers;
 
 function clear_reset_data() {
   document.getElementById("Alias").value = "";
@@ -531,7 +530,7 @@ function clear_reset_data() {
   copytoclipboard2("cleared");
   document.getElementById("resize").value = 28;
 }
-windows.clear_reset_data = clear_reset_data;
+window.clear_reset_data = clear_reset_data;
 
 function copytoclipboard(id) {
   //alert('IMPORTANT: Please click Clear/Reset AFTER pasting pw to clear the pw and clipboard!');
@@ -577,6 +576,7 @@ function copytoclipboard2(text) {
 //async function GeneratePW() //async is here incase we use digest / promise version
 function GeneratePW() {
   //async is here in case we use digest / promise version
+  stop_timers();
   let Alias = document.getElementById("Alias").value;
   CheckForNoSpaces("Alias");
   let Secret = document.getElementById("Secret").value;
@@ -626,6 +626,7 @@ function GeneratePW() {
 
   document.getElementById("Answer").value = PW;
 }
+window.GeneratePW = GeneratePW;
 
 function BuildAliasSelect() {
   //runs on start up
