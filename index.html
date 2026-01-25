@@ -21,23 +21,24 @@
     }
   }
 </script>
+
+
   
-  <link rel='stylesheet' href='https://ccdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css'>
-<link rel='stylesheet' href='https://cdn.simplecss.org/simple.css'>
-<link rel='stylesheet' href='https://ccdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css'>
-<link rel='stylesheet' href='https://ccdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css'>
-<link rel='stylesheet' href='https://ccdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css'>
+  <link rel='stylesheet' href='https://cdn.simplecss.org/simple.css'>
   
 <style>
 /*
-
-https://milligram.io/
-
 https://simplecss.org/
-
-https://pure-css.github.io/
+https://cdn.simplecss.org/simple.css
 
 https://picocss.com/
+https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css
+
+https://milligram.io/
+https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css
+
+https://pure-css.github.io/
+https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css
 */
 
 body{
@@ -56,6 +57,10 @@ body{
 input[type=text] {
   width: 100%;
 }
+  
+:root {
+  --accent: black;
+}
 </style>
 
   
@@ -68,14 +73,17 @@ input[type=text] {
 
   <div_header style="display:flex; fon-size:18pt;">
     <center style="width:100%">
-        <span>
-          <a @click="openMenu" class="button">&#x2261;</a>
-        </span>
+      <span v-bind:hidden="main_page_component_hidden">
+        <a @click="openMenu" class="button">&#x2261;</a>
+      </span>
+      <span v-bind:hidden="!main_page_component_hidden">
+        <a @click="closeMenu" class="button">X</a>
+      </span>
       &nbsp;&nbsp;&nbsp;
-        <span>
-          fPw : Password Calculator
-        </span>
-        <hr>
+      <span>
+        fPw : Password Calculator
+      </span>
+      <hr>
     </center>
   </div_header>
 
@@ -194,19 +202,22 @@ input[type=text] {
         </span>
       </div>
 
-      <div style="display: flex">
-        <span>
-          <input type="button" id="copybutton" data-mini="true" value="Copy / Save" title="Copies Answer to clipboard. Saves Alias and Comment to local cookie." onclick="GeneratePW(); addToList(); copytoclipboard('Answer');">
-        </span>
-        &nbsp;&nbsp;&nbsp;
-        <span>
-          <input type="button" id="clear_reset" data-mini="true" value="Clear / Reset" title="Clears Answer and Secret if any plus all settings to default. Saved Aliases are not changed. Clipboard set to 'cleared'." onclick="clear_reset_data();">
-        </span>
-      </div>
+      <center>
+        <div>
+          <span>
+            <input type="button" id="copybutton" data-mini="true" value="Copy / Save" title="Copies Answer to clipboard. Saves Alias and Comment to local cookie." onclick="GeneratePW(); addToList(); copytoclipboard('Answer');">
+          </span>
+          &nbsp;&nbsp;&nbsp;
+          <span>
+            <input type="button" id="clear_reset" data-mini="true" value="Clear / Reset" title="Clears Answer and Secret if any plus all settings to default. Saved Aliases are not changed. Clipboard set to 'cleared'." onclick="clear_reset_data();">
+          </span>
+        </div>
 
-      <div>
-        <input type="checkbox" id="clear_timer" data-mini="true" value="" onchange="stop_timers();" title=""> <label for="clear_timer">Timed Clear</label>
-      </div>
+        <div>
+          <input type="checkbox" id="clear_timer" data-mini="true" value="" onchange="stop_timers();" title=""> <label for="clear_timer">Timed Clear</label>
+        </div>
+      </center>
+
     </form>
     <div id="timer_alert"></div>
   </div_main_page>
@@ -280,8 +291,8 @@ import { createApp, ref } from "vue";
 const rootComponent = {
   setup() {
     const main_page_component_hidden = ref(0);
-    const menu_page_component_hidden = ref(0);
-    const alias_list_page_component_hidden = ref(0);
+    const menu_page_component_hidden = ref(1);
+    const alias_list_page_component_hidden = ref(1);
     
     function openMenu() {
       main_page_component_hidden.value = 1;
@@ -293,10 +304,16 @@ const rootComponent = {
       menu_page_component_hidden.value = 1;
       alias_list_page_component_hidden.value = 0;
     }
+    function closeMenu() {
+      main_page_component_hidden.value = 0;
+      menu_page_component_hidden.value = 1;
+      alias_list_page_component_hidden.value = 1;
+    }
     
     return {
       openMenu,
       openAliasList,
+      closeMenu,
       main_page_component_hidden ,
       menu_page_component_hidden,
       alias_list_page_component_hidden
