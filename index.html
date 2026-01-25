@@ -8,7 +8,7 @@
   
   
 
-  <title>Forever Passwords Vue? WIP</title>
+  <title>Forever Passwords Vue</title>
 
     <link rel="canonical" href="https://codepen.io/vpelss/pen/dPXWBmZ">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -71,7 +71,7 @@ input[type=text] {
 <body>
   <div id="rootComponent">
 
-  <div_header style="display:flex; fon-size:18pt;">
+  <div_header style="display:flex;">
     <center style="width:100%">
       <span v-bind:hidden="main_page_component_hidden">
         <a @click="openMenu" class="button">&#x2261;</a>
@@ -89,7 +89,7 @@ input[type=text] {
 
   <div_main_page v-bind:hidden="main_page_component_hidden">
     <form>
-      <div style="display: flex">
+      <div style="display:flex">
         <span style="width: 90%">
           <datalist id="dataList" autocomplete="off"></datalist>
           <input type="text" id="Alias" autocomplete="off" list="dataList" placeholder="Site URL or Alias eg: mysite.com" onclick="this.select();this.value='';GeneratePW();" onkeyup="GeneratePW();" onchange="AliasChanged(this.value);">
@@ -108,115 +108,111 @@ input[type=text] {
         <input id="Answer" type="text" placeholder="Answer: A unique pw based on the Alias + Secret" readonly onclick="copytoclipboard('Answer');" title="This is your Answer to use.">
       </div>
 
-      <div>
-        <input type="radio" checked="true" id="NoCharacterReplacements" name="Character_Types" value="NoCharacterReplacements" onchange="GeneratePW();" title="Replaces no characters. Default.">
-        <label for="NoCharacterReplacements">No Character Replacements (default)
-        </label>
-      </div>
-      <div>
-        <input type="radio" id="NoSpecialCharacters" name="Character_Types" data-mini="true" value="NoSpecialCharacters" onchange="GeneratePW();" title="Replaces base64 special characters + with X, / with Q, and = (base64 padding) with Z">
-        <label for="NoSpecialCharacters">No Special Characters
-        </label>
-      </div>
-      <div>
-        <input type="radio" id="ForceSpecialCharacters" name="Character_Types" data-mini="true" value="ForceSpecialCharacters" onchange="GeneratePW();" title="If no special characters, replace last character with a !"> <label for="ForceSpecialCharacters">Force Special Characters</label>
-      </div>
+      
 
-      <div>
-        <input id="AliasComment" placeholder="Comments for Alias eg:13 characters,no special char" title="This is a field for a comment for the current Alias. For example, some sites may have special password requirements." size="50">
-      </div>
+        <div style="display: flex">
+          <select id="character_modifications" name="character_modifications" title="Character Modifications" onchange="GeneratePW();" style="width: 90%">
+            <option value="no_character_modifications" selected>No Character Replacements (default) </option>
+            <option value="no_special_characters">No Special Characters</option>
+            <option value="force_special_characters">Force Special Characters</option>
+          </select> &nbsp; &nbsp; &nbsp; <a href="#" class="button" onclick="alert('No Special Characters: Replaces base64 special characters + with X, / with Q, and = (base64 padding) with Z. \n\nForce Special Characters: If no special characters, replace last character with a =')">?</a>
+        </div>
 
-      <div style="display: flex">
-        <span>
-          <label for="resize">Answer Length</label>
-        </span>
-        &nbsp; &nbsp; &nbsp;
-        <span>
-          <div id="outerresize">
-            <select id="resize" name="resize" title="Select desired Answer length." onchange=" GeneratePW();" data-mini="true">
-              <option value="8">
-                8
-              </option>
-              <option value="9">
-                9
-              </option>
-              <option value="10">
-                10
-              </option>
-              <option value="11">
-                11
-              </option>
-              <option value="12">
-                12
-              </option>
-              <option value="13">
-                13
-              </option>
-              <option value="14">
-                14
-              </option>
-              <option value="15">
-                15
-              </option>
-              <option value="16">
-                16
-              </option>
-              <option value="17">
-                17
-              </option>
-              <option value="18">
-                18
-              </option>
-              <option value="19">
-                19
-              </option>
-              <option value="20">
-                20
-              </option>
-              <option value="21">
-                21
-              </option>
-              <option value="22">
-                22
-              </option>
-              <option value="23">
-                23
-              </option>
-              <option value="24">
-                24
-              </option>
-              <option value="25">
-                25
-              </option>
-              <option value="26">
-                26
-              </option>
-              <option value="27">
-                27
-              </option>
-              <option value="28" selected>
-                28
-              </option>
-            </select>
+        <div>
+          <input id="AliasComment" placeholder="Comments for Alias eg:13 characters,no special char" title="This is a field for a comment for the current Alias. For example, some sites may have special password requirements." size="50">
+        </div>
+
+        <div style="display: flex">
+          <span>
+            <label for="resize">Answer Length</label>
+          </span>
+          &nbsp; &nbsp; &nbsp;
+          <span>
+            <div id="outerresize">
+              <select id="resize" name="resize" title="Select desired Answer length." onchange=" GeneratePW();">
+                <option value="8">
+                  8
+                </option>
+                <option value="9">
+                  9
+                </option>
+                <option value="10">
+                  10
+                </option>
+                <option value="11">
+                  11
+                </option>
+                <option value="12">
+                  12
+                </option>
+                <option value="13">
+                  13
+                </option>
+                <option value="14">
+                  14
+                </option>
+                <option value="15">
+                  15
+                </option>
+                <option value="16">
+                  16
+                </option>
+                <option value="17">
+                  17
+                </option>
+                <option value="18">
+                  18
+                </option>
+                <option value="19">
+                  19
+                </option>
+                <option value="20">
+                  20
+                </option>
+                <option value="21">
+                  21
+                </option>
+                <option value="22">
+                  22
+                </option>
+                <option value="23">
+                  23
+                </option>
+                <option value="24">
+                  24
+                </option>
+                <option value="25">
+                  25
+                </option>
+                <option value="26">
+                  26
+                </option>
+                <option value="27">
+                  27
+                </option>
+                <option value="28" selected>
+                  28
+                </option>
+              </select>
+            </div>
+          </span>
+        </div>
+
+        <center>
+          <div>
+            <span>
+              <input type="button" id="copybutton" value="Copy / Save" title="Copies Answer to clipboard. Saves Alias and Comment to local cookie." onclick="GeneratePW(); addAliasToList(); copytoclipboard('Answer');">
+            </span>
+            &nbsp;&nbsp;&nbsp;
+            <span>
+              <input type="button" id="clear_reset" value="Clear / Reset" title="Clears Answer and Secret if any plus all settings to default. Saved Aliases are not changed. Clipboard set to 'cleared'." onclick="clear_reset_data();">
+            </span>
           </div>
-        </span>
-      </div>
 
-      <center>
-        <div>
-          <span>
-            <input type="button" id="copybutton" data-mini="true" value="Copy / Save" title="Copies Answer to clipboard. Saves Alias and Comment to local cookie." onclick="GeneratePW(); addToList(); copytoclipboard('Answer');">
-          </span>
-          &nbsp;&nbsp;&nbsp;
-          <span>
-            <input type="button" id="clear_reset" data-mini="true" value="Clear / Reset" title="Clears Answer and Secret if any plus all settings to default. Saved Aliases are not changed. Clipboard set to 'cleared'." onclick="clear_reset_data();">
-          </span>
-        </div>
-
-        <div>
-          <input type="checkbox" id="clear_timer" data-mini="true" value="" onchange="stop_timers();" title=""> <label for="clear_timer">Timed Clear</label>
-        </div>
-      </center>
+          <div>
+            <input type="checkbox" id="clear_timer" value="" onchange="stop_timers();" title=""> <label for="clear_timer">Timed Clear</label>
+          </div>
+        </center>
 
     </form>
     <div id="timer_alert"></div>
@@ -224,35 +220,6 @@ input[type=text] {
 
   <div_menu_page v-bind:hidden="menu_page_component_hidden">
 
-    <center>
-      <div>
-        <a href="#ManageAliasList" class="button" @click="openAliasList">Copy/Restore/Alias List</a>
-      </div>
-
-      Links below will open in your default browser.
-      <div>
-        <a href="https://vpelss.github.io/Forever_Passwords//README.md" class="button u-full-width" target="_blank">Help/Read Me</a>
-      </div>
-
-      <div>
-        <a href="https://github.com/vpelss/Forever_Passwords" target="_blank" class="button u-full-width">Github</a>
-      </div>
-
-      <div>
-        <a href="https://vpelss.github.io/Forever_Passwords/Licence.txt" target="_blank" class="button">Licence</a>
-      </div>
-
-      <div>
-        <a href="https://www.emogic.com/cgi/fp/backup.php" target="blank" class="button u-full-width">Doesn't work?</a>
-      </div>
-
-      <div>
-        <a href="#" id="install" class="button u-full-width">Install as PWA</a>
-      </div>
-    </center>
-  </div_menu_page>
-
-  <div_alias_page v-bind:hidden="alias_list_page_component_hidden">
     <form>
       <center>
         <div>
@@ -273,14 +240,44 @@ input[type=text] {
         </div>
       </center>
     </form>
-  </div_alias_page>
+
+    <center>
+      <div>
+        <a href="#" id="install" class="button">Install as PWA</a>
+      </div>
+
+      <div>
+        Links below will open in your default browser.
+      </div>
+
+      <div>
+        <a href="https://vpelss.github.io/Forever_Passwords//README.md" class="button u-full-width" target="_blank">Help/Read Me</a>
+      </div>
+
+      <div>
+        <a href="https://github.com/vpelss/Forever_Passwords" target="_blank" class="button u-full-width">Github</a>
+      </div>
+
+      <div>
+        <a href="https://vpelss.github.io/Forever_Passwords/Licence.txt" target="_blank" class="button">Licence</a>
+      </div>
+
+      <div>
+        <a href="https://www.emogic.com/cgi/fp/backup.php" target="blank" class="button u-full-width">Doesn't work?</a>
+      </div>
+
+    </center>
+
+  </div_menu_page>
 
 </div>
   
     <script id="rendered-js" type="module">
 //https://vuejs.org/guide/quick-start#using-vue-from-cdn
 // see <head> for js import map
+
 import { createApp, ref } from "vue";
+
 // Now I am a (M)odule! - Ralph
 // so my functions are no longer global
 //we need to make them global if html events will be calling them
@@ -292,42 +289,32 @@ const rootComponent = {
   setup() {
     const main_page_component_hidden = ref(0);
     const menu_page_component_hidden = ref(1);
-    const alias_list_page_component_hidden = ref(1);
-    
+    //const alias_list_page_component_hidden = ref(1);
+
     function openMenu() {
       main_page_component_hidden.value = 1;
       menu_page_component_hidden.value = 0;
-      alias_list_page_component_hidden.value = 1;
+      //alias_list_page_component_hidden.value = 1;
     }
-   function openAliasList() {
+    function openAliasList() {
       main_page_component_hidden.value = 1;
       menu_page_component_hidden.value = 1;
-      alias_list_page_component_hidden.value = 0;
+      //alias_list_page_component_hidden.value = 0;
     }
     function closeMenu() {
       main_page_component_hidden.value = 0;
       menu_page_component_hidden.value = 1;
-      alias_list_page_component_hidden.value = 1;
     }
-    
     return {
       openMenu,
-      openAliasList,
       closeMenu,
-      main_page_component_hidden ,
-      menu_page_component_hidden,
-      alias_list_page_component_hidden
+      main_page_component_hidden,
+      menu_page_component_hidden
     };
   },
   components: {
     //#this way we need to place the imported component first
     //button_component,
-  },
-  data() {
-    return {
-      //main_page_component_hidden : mpch,
-   
-    };
   },
   _script: "#myScript",
   _template: `<_button_component />`, //inline
@@ -679,7 +666,11 @@ function GeneratePW() {
   PW = PW.slice(0, size);
 
   let pattern;
-  if (document.getElementById("NoSpecialCharacters").checked == true) {
+  //if (document.getElementById("NoSpecialCharacters").checked == true) {
+  if (
+    document.getElementById("character_modifications").value ==
+    "no_special_characters"
+  ) {
     //use capital X , Q , Z least used letters
     pattern = /[+]/g;
     PW = PW.replace(pattern, "X");
@@ -688,8 +679,12 @@ function GeneratePW() {
     pattern = /[=]/g;
     PW = PW.replace(pattern, "Z");
   }
-  if (document.getElementById("ForceSpecialCharacters").checked == true) {
-    //chech for + , / , = . If note, replace last char with =
+  //if (document.getElementById("ForceSpecialCharacters").checked == true) {
+  if (
+    document.getElementById("character_modifications").value ==
+    "force_special_characters"
+  ) {
+    //check for + , / , = . If not, replace last char with =
     pattern = /[+/=]/g;
     if (!pattern.test(PW)) {
       PW = PW.replace(/.$/, "=");
@@ -715,10 +710,16 @@ function BuildAliasSelect() {
     }
 }
 
-function addToList() {
+function addAliasToList() {
   let Alias = document.getElementById("Alias").value;
 
   //find and set Character_Types radio input
+  let character_modifications_element = document.getElementById(
+    "character_modifications"
+  );
+  let character_modifications = character_modifications_element.value;
+
+  /*
   let Character_Types;
   let elements = document.getElementsByName("Character_Types");
   for (let i = 0; i < elements.length; i++) {
@@ -727,18 +728,18 @@ function addToList() {
       break;
     }
   }
+*/
 
   GlobalAssociativeArray[Alias] = {
     comment: document.getElementById("AliasComment").value,
     resize: document.getElementById("resize").value,
-    Character_Types: Character_Types
-    //'NoSpecialCharacters': document.getElementById('NoSpecialCharacters').checked
+    character_modifications: character_modifications
   }; //set as associative array
 
   VarToLocalStorage();
   BuildAliasSelect();
 }
-window.addToList = addToList;
+window.addAliasToList = addAliasToList;
 
 function Delete() {
   let SelectedName = document.getElementById("Alias").value; //get Selected name
@@ -815,26 +816,32 @@ function AliasChanged(value) {
     document.getElementById("resize").value =
       GlobalAssociativeArray[Alias].resize;
   }
-  if (typeof $ == "function") {
-    //if using jquery, refresh display is required
-    $("#resize").selectmenu("refresh");
-  }
 
-  if (typeof GlobalAssociativeArray[Alias].Character_Types != "undefined") {
-    //get Character_Types and set it's element's checked to true
-    let id_is = GlobalAssociativeArray[Alias].Character_Types;
-    document.getElementById(id_is).checked = true;
+   let character_modifications_element = document.getElementById("character_modifications");
+  //look for old radio style and remove it
+  if (typeof GlobalAssociativeArray[Alias].NoSpecialCharacters != "undefined") {
+    if (GlobalAssociativeArray[Alias].NoSpecialCharacters == true) {
+      GlobalAssociativeArray[Alias].character_modifications =
+        "no_special_characters";
+      character_modifications_element.value =
+      GlobalAssociativeArray[Alias].character_modifications;
+    } else {
+      GlobalAssociativeArray[Alias].character_modifications =
+        "no_character_modifications";
+      character_modifications_element.value =
+      GlobalAssociativeArray[Alias].character_modifications;
+    }
+    GlobalAssociativeArray[Alias].NoSpecialCharacters = undefined; //remove it if we save!
+  }
+  if (
+    typeof GlobalAssociativeArray[Alias].character_modifications != "undefined"
+  ) {
+    character_modifications_element.value =
+      GlobalAssociativeArray[Alias].character_modifications;
   } else {
     //set default
-    document.getElementById("NoCharacterReplacements").checked = true;
+    character_modifications_element.value = "no_character_modifications";
   }
-  if (typeof $ == "function") {
-    //if using jquery, refresh display is required
-    $(
-      "#NoCharacterReplacements , #NoSpecialCharacters , #ForceSpecialCharacters"
-    ).checkboxradio("refresh");
-  }
-
   GeneratePW();
 }
 window.AliasChanged = AliasChanged;
@@ -878,7 +885,7 @@ function ExportAll() {
 }
 window.ExportAll = ExportAll;
 
-//button to instyall PWA
+//button to install PWA
 //https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
 
 let installPrompt = null;
@@ -903,8 +910,6 @@ function disableInAppInstallPrompt() {
   installPrompt = null;
   installButton.setAttribute("hidden", "");
 }
-
-// main.js
 
 window.addEventListener("appinstalled", () => {
   disableInAppInstallPrompt();
